@@ -1,0 +1,63 @@
+###
+apache install:
+	sudo apt update && upgrade
+	sudo apt install apache2
+	systemctl start apache2 
+	systemctl enable apache2
+PHP install:
+	apt install php libapache2-mod-php php-mysql
+	php --version
+
+Mysql install:
+        sudo apt-get install mysql-server
+	nano /etc/mysql/mysql.conf.d/mysqld.cnf
+	modificar el:
+		bind-address    127.0.0.1 a:
+		bind-address    0.0.0.0 para todas las ips
+	sudo systemctl restart mysql
+	mysql -u root -p
+	mysql> CREATE USER 'pitunti'@'%' IDENTIFIED BY 'pitunti12';
+	mysql> GRANT ALL PRIVILEGES ON *.* TO 'pitunti'@'%' WITH GRANT OPTION;
+	mysql> FLUSH PRIVILEGES;
+		*ver usuarios:mysql>SELECT USER(),CURRENT_USER();
+		*ver privilegios mysql>SHOW GRANTS FOR pitunti@'%'
+	Crear la base de datos:
+		mysql> CREATE DATABASE tokyo;
+phpMyAdmin install:
+	apt install phpmyadmin php-mbstring php-gettext
+	  1)Seleciona apache2
+	  2)selecionas YES
+	  3)ingresar la passwd
+	phpenmod mbstring
+	editar:
+	  nano /etc/apache2/apache2.conf
+	pegar:
+	  Include /etc/phpmyadmin/apache.conf
+	systemctl restart apache2
+			
+
+lavavel install:
+	sudo apt install composer
+	sudo apt install php-mbstring
+	sudo apt install php-xml
+	sudo apt-get install php7.2-zip
+	composer global require laravel/installer
+	cd /var/www/html
+	composer create-project --prefer-dist laravel/laravel [nombre del proyecto]
+	(esperar a que termine);
+	cd /var/www/html/[nombre del proyecto]
+	chmod -R 777 storage/
+	sudo nano /etc/apache2/sites-enabled/000-default.conf
+	DocumentRoot /var/www/nombre_proyecto/public
+        sudo nano /etc/apache2/apache2.conf
+	Agregar:
+		<Directory /var/www/nombre_proyecto/public/>
+    		RewriteEngine On
+    		RewriteBase /var/www/nombre_proyecto/public
+   		Options Indexes FollowSymLinks
+    		AllowOverride All
+    		Require all granted
+		</Directory>
+
+
+	sudo service apache2 restart
