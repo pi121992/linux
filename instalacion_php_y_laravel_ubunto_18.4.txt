@@ -52,8 +52,8 @@ lavavel install:
         sudo nano /etc/apache2/apache2.conf
 	Agregar:
 		<Directory /var/www/nombre_proyecto/public/>
-    		RewriteEngine On
-    		RewriteBase /var/www/nombre_proyecto/public
+    		RewriteEngine On # quitar si da error 
+    		RewriteBase /var/www/nombre_proyecto/public #quitar si da error 
    		Options Indexes FollowSymLinks
     		AllowOverride All
     		Require all granted
