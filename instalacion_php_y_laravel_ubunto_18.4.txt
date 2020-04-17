@@ -42,6 +42,7 @@ lavavel install:
 	sudo apt install php-xml
 	sudo apt-get install php7.2-zip
 	composer global require laravel/installer
+	a2enmod rewrite
 	cd /var/www/html
 	composer create-project --prefer-dist laravel/laravel [nombre del proyecto]
 	(esperar a que termine);
